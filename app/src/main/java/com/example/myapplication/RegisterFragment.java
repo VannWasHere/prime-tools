@@ -62,8 +62,8 @@ public class RegisterFragment extends Fragment {
     }
 
     private void registerUser() {
-        String email = emailEditText.getText().toString().trim();
-        String username = usernameEditText.getText().toString().trim();
+        String email = emailEditText.getText().toString().trim().toLowerCase();
+        String username = usernameEditText.getText().toString().trim().toLowerCase();
         String phone = phoneEditText.getText().toString().trim();
         String password = passwordEditText.getText().toString().trim();
 
@@ -101,9 +101,7 @@ public class RegisterFragment extends Fragment {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        // Handle error
                         Toast.makeText(getContext(), "Registration failed. Please try again.", Toast.LENGTH_SHORT).show();
-                        // Print the error response for debugging
                         Log.e("VolleyError", error.toString());
                     }
                 }) {
