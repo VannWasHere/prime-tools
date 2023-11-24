@@ -42,4 +42,7 @@ public class MainActivity extends AppCompatActivity {
             return 2;
         }
     }
+    public void switchToLoginFragment() {
+        viewPager.setCurrentItem(0);
+    }
 }
