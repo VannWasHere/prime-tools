@@ -34,14 +34,7 @@ public class MainActivity extends AppCompatActivity {
         @NonNull
         @Override
         public Fragment createFragment(int position) {
-            switch (position) {
-                case 0:
-                    return new LoginFragment();
-                case 1:
-                    return new RegisterFragment();
-                default:
-                    throw new IllegalArgumentException("Invalid position: " + position);
-            }
+            return position == 0 ? new LoginFragment() : new RegisterFragment();
         }
 
         @Override
