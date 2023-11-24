@@ -1,4 +1,5 @@
 package com.example.myapplication;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,6 +25,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class LoginFragment extends Fragment {
 
@@ -75,10 +77,14 @@ public class LoginFragment extends Fragment {
 
                             if (success) {
                                 Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
-
-                                JSONObject userObject = jsonResponse.getJSONObject("user");
-
-                                // or perform other actions as needed after successful login
+                                String userId = jsonResponse.getJSONObject("user").getString("id").trim();
+                                String username = jsonResponse.getJSONObject("user").getString("username").trim();
+                                String email = jsonResponse.getJSONObject("user").getString("user_email").trim();
+                                String phone = jsonResponse.getJSONObject("user").getString("user_phone").trim();
+                                SessionManager sessionManager = new SessionManager(requireContext());
+                                sessionManager.createSession(userId, username, email, phone);
+                                Intent intent = new Intent(requireActivity().getApplicationContext(), HomeActivity.class);
+                                startActivity(intent);
                             } else {
                                 Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
                             }
