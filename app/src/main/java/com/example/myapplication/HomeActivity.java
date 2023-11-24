@@ -22,5 +22,7 @@ public class HomeActivity extends AppCompatActivity {
         HashMap<String, String> user = sessionManager.getUserDetails();
         userHello = findViewById(R.id.userHello);
         userHello.setText("Hello, " + user.get(sessionManager.USERNAME));
+
+
     }
 }
