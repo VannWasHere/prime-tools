@@ -20,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        SessionManager sessionManager = new SessionManager(this);
+        sessionManager.checkLogin();
 
         viewPager = findViewById(R.id.viewPager);
         viewPager.setAdapter(new ViewPagerAdapter(this));

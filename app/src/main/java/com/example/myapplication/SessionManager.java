@@ -40,12 +40,17 @@ public class SessionManager {
     }
 
     public void checkLogin() {
-        if (!this.isLogging()) {
-            Intent i = new Intent(context.getApplicationContext(), MainActivity.class);
-            context.startActivity(i);
-            ((MainActivity) context).finish();
+        if (context != null && this.isLogging()) {
+            Intent intent = new Intent(context.getApplicationContext(), HomeActivity.class);
+            context.startActivity(intent);
+            if (context instanceof MainActivity) {
+                ((MainActivity) context).finish();
+            }
         }
     }
+
+
+
 
     public HashMap<String, String> getUserDetails() {
         HashMap<String, String> user = new HashMap<>();
