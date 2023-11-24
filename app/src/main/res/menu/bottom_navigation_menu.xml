@@ -12,7 +12,7 @@
         android:title="Home"
         android:icon="@drawable/home" />
     <item
-        android:id="@+id/tab_profile"
-        android:title="Profile"
-        android:icon="@drawable/user" />
+        android:id="@+id/tab_menu"
+        android:title="Menu"
+        android:icon="@drawable/menu" />
 </menu>
