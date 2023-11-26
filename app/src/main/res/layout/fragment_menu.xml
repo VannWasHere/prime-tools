@@ -5,10 +5,51 @@
     android:layout_height="match_parent"
     tools:context=".MenuFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="This is Menu" />
+        android:orientation="vertical"
+        android:padding="10dp">
 
+        <Button
+            android:id="@+id/menu_profile"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:backgroundTint="@color/blue"
+            android:text="Profile" />
+
+        <Button
+            android:id="@+id/menu_camera"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:backgroundTint="@color/blue"
+            android:text="Open Camera" />
+
+        <Button
+            android:id="@+id/menu_location"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:backgroundTint="@color/blue"
+            android:text="Our Location" />
+
+        <Button
+            android:id="@+id/menu_web"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:backgroundTint="@color/blue"
+            android:text="About Us" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="bottom">
+            <Button
+                android:id="@+id/menu_logout"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:backgroundTint="#ff0000"
+                android:text="Log Out" />
+        </LinearLayout>
+    </LinearLayout>
 </FrameLayout>
