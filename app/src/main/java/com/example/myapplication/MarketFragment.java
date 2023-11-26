@@ -57,6 +57,7 @@ public class MarketFragment extends Fragment {
                         JSONObject getData = item.getJSONObject(i);
                         String name = getData.getString("item_name");
                         String priceStr = getData.getString("item_price");
+                        String itemDesc = getData.getString("item_desc");
                         item_id = getData.getString("item_id");
 
                         int price = Integer.parseInt(priceStr);
@@ -67,6 +68,7 @@ public class MarketFragment extends Fragment {
                         hashMap.put("item_id", item_id);
                         hashMap.put("item_name", name);
                         hashMap.put("item_price", formattedPrice);
+                        hashMap.put("item_desc", itemDesc);
                         listRandTools.add(hashMap);
                     }
                     adapter = new SimpleAdapter(getContext(), listRandTools, R.layout.list_item, new String[]{
@@ -92,10 +94,16 @@ public class MarketFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItemName = listRandTools.get(position).get("item_name");
+                String selectedItemPrice = listRandTools.get(position).get("item_price");
                 String selectedItemID = listRandTools.get(position).get("item_id");
+                String selectedItemDesc = listRandTools.get(position).get("item_desc");
 
                 Intent intent = new Intent(getActivity(), CheckoutActivity.class);
                 intent.putExtra("selectedItemID", selectedItemID);
+                intent.putExtra("selectedItemName", selectedItemName);
+                intent.putExtra("selectedItemPrice", selectedItemPrice);
+                intent.putExtra("selectedItemDesc", selectedItemDesc);
                 startActivity(intent);
             }
         });

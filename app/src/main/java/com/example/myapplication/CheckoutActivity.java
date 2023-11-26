@@ -14,7 +14,9 @@ public class CheckoutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_checkout);
 
         Intent intent = getIntent();
-        String id = intent.getStringExtra("selectedItemID");
-        Log.d("thisisid", "The Item ID: " + id);
+        String selectedItemName = intent.getStringExtra("selectedItemName");
+        String selectedItemPrice = intent.getStringExtra("selectedItemPrice");
+        String selectedItemID = intent.getStringExtra("selectedItemID");
+        String selectedItemDesc = intent.getStringExtra("selectedItemDesc");
     }
 }
