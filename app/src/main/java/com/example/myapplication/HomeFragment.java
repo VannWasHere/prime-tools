@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -21,7 +20,6 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.NumberFormat;
@@ -36,6 +34,7 @@ public class HomeFragment extends Fragment {
     ListAdapter adapter;
     String get_rand_item = "http://10.0.2.2:50/PrimeTools/showRandItem.php";
     private static final String RESPONSE_DATA = "items";
+    String item_id;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -50,24 +49,23 @@ public class HomeFragment extends Fragment {
             public void onResponse(String response) {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
-                    JSONArray student = jsonObject.getJSONArray(RESPONSE_DATA);
-                    for (int i = 0; i < student.length(); i++) {
-                        JSONObject getData = student.getJSONObject(i);
+                    JSONArray item = jsonObject.getJSONArray(RESPONSE_DATA);
+                    for (int i = 0; i < item.length(); i++) {
+                        JSONObject getData = item.getJSONObject(i);
                         String name = getData.getString("item_name");
                         String priceStr = getData.getString("item_price");
+                        item_id = getData.getString("item_id");
 
-                        // Convert price string to integer
                         int price = Integer.parseInt(priceStr);
 
-                        // Format price as "Rp.{price}"
                         String formattedPrice = "Rp." + NumberFormat.getInstance().format(price);
 
                         HashMap<String, String> hashMap = new HashMap<>();
+                        hashMap.put("item_id", item_id);
                         hashMap.put("item_name", name);
                         hashMap.put("item_price", formattedPrice);
                         listRandTools.add(hashMap);
                     }
-//                    Inserting into List View
                     adapter = new SimpleAdapter(getContext(), listRandTools, R.layout.list_item, new String[]{
                             "item_name",
                             "item_price",
@@ -76,6 +74,18 @@ public class HomeFragment extends Fragment {
                             R.id.item_price
                     });
                     listView.setAdapter(adapter);
+
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            String selectedItemID = listRandTools.get(position).get("item_id");
+
+                            Intent intent = new Intent(getActivity(), CheckoutActivity.class);
+                            intent.putExtra("selectedItemID", selectedItemID);
+                            startActivity(intent);
+                        }
+                    });
+
                 } catch (Exception e) {
                     Log.e("Error", e.getMessage());
                 }

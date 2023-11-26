@@ -49,9 +49,9 @@ public class MarketFragment extends Fragment {
             public void onResponse(String response) {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
-                    JSONArray student = jsonObject.getJSONArray(RESPONSE_DATA);
-                    for (int i = 0; i < student.length(); i++) {
-                        JSONObject getData = student.getJSONObject(i);
+                    JSONArray item = jsonObject.getJSONArray(RESPONSE_DATA);
+                    for (int i = 0; i < item.length(); i++) {
+                        JSONObject getData = item.getJSONObject(i);
                         String name = getData.getString("item_name");
                         String priceStr = getData.getString("item_price");
 
