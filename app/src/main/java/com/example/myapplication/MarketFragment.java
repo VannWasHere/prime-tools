@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -33,6 +35,7 @@ public class MarketFragment extends Fragment {
     ListAdapter adapter;
     String get_rand_item = "http://10.0.2.2:50/PrimeTools/showItems.php";
     private static final String RESPONSE_DATA = "items";
+    String item_id;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,19 +57,18 @@ public class MarketFragment extends Fragment {
                         JSONObject getData = item.getJSONObject(i);
                         String name = getData.getString("item_name");
                         String priceStr = getData.getString("item_price");
+                        item_id = getData.getString("item_id");
 
-                        // Convert price string to integer
                         int price = Integer.parseInt(priceStr);
 
-                        // Format price as "Rp.{price}"
                         String formattedPrice = "Rp." + NumberFormat.getInstance().format(price);
 
                         HashMap<String, String> hashMap = new HashMap<>();
+                        hashMap.put("item_id", item_id);
                         hashMap.put("item_name", name);
                         hashMap.put("item_price", formattedPrice);
                         listRandTools.add(hashMap);
                     }
-//                    Inserting into List View
                     adapter = new SimpleAdapter(getContext(), listRandTools, R.layout.list_item, new String[]{
                             "item_name",
                             "item_price",
@@ -86,6 +88,18 @@ public class MarketFragment extends Fragment {
                 Toast.makeText(getContext(), "Silahkan cek koneksi anda", Toast.LENGTH_SHORT).show();
             }
         });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItemID = listRandTools.get(position).get("item_id");
+
+                Intent intent = new Intent(getActivity(), CheckoutActivity.class);
+                intent.putExtra("selectedItemID", selectedItemID);
+                startActivity(intent);
+            }
+        });
+
         requestQueue.getCache().clear();
         requestQueue.add(stringRequest);
 
