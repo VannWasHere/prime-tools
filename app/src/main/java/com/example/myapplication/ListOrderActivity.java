@@ -2,7 +2,10 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -50,6 +53,15 @@ public class ListOrderActivity extends AppCompatActivity {
                 new int[]{R.id.orderListName, R.id.orderListPrice, R.id.orderListAddress}
         );
         orderListView.setAdapter(orderListAdapter);
+        orderListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String order_id = orderList.get(position).get("order_id");
+                Intent intent = new Intent(ListOrderActivity.this, ListOrderDetails.class);
+                intent.putExtra("order_id", order_id);
+                startActivity(intent);
+            }
+        });
         fetchOrders();
     }
 
@@ -71,11 +83,13 @@ public class ListOrderActivity extends AppCompatActivity {
                                 for (int i = 0; i < ordersArray.length(); i++) {
                                     JSONObject orderObject = ordersArray.getJSONObject(i);
 
+                                    int order_id = orderObject.getInt("order_id");
                                     String itemName = orderObject.getString("item_name");
                                     int orderPrice = orderObject.getInt("order_price");
                                     String orderAddress = orderObject.getString("order_address");
 
                                     Map<String, String> orderMap = new HashMap<>();
+                                    orderMap.put("order_id", String.valueOf(order_id));
                                     orderMap.put("itemName", itemName);
                                     orderMap.put("orderPrice", String.valueOf(orderPrice));
                                     orderMap.put("orderAddress", orderAddress);
