@@ -13,6 +13,15 @@
         android:padding="10dp"
         tools:ignore="MissingConstraints">
 
+        <TextView
+            android:id="@+id/userName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Orders"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:layout_marginBottom="10dp"/>
+
         <ListView
             android:id="@+id/orderList"
             android:layout_width="match_parent"
