@@ -9,42 +9,66 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:padding="16dp">
 
         <Button
             android:id="@+id/menu_profile"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:backgroundTint="@color/blue"
-            android:text="Profile" />
+            android:text="Profile"
+            android:textColor="@android:color/white"
+            android:textAllCaps="false"
+            android:gravity="start|center_vertical"
+            android:paddingStart="16dp"/>
 
         <Button
             android:id="@+id/menu_orders"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:backgroundTint="@color/blue"
-            android:text="Show Orders" />
+            android:text="Show Orders"
+            android:textColor="@android:color/white"
+            android:textAllCaps="false"
+            android:gravity="start|center_vertical"
+            android:paddingStart="16dp"
+            android:layout_marginTop="8dp"/>
 
         <Button
             android:id="@+id/menu_camera"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:backgroundTint="@color/blue"
-            android:text="Open Camera" />
+            android:text="Open Camera"
+            android:textColor="@android:color/white"
+            android:textAllCaps="false"
+            android:gravity="start|center_vertical"
+            android:paddingStart="16dp"
+            android:layout_marginTop="8dp"/>
 
         <Button
             android:id="@+id/menu_location"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:backgroundTint="@color/blue"
-            android:text="Our Location" />
+            android:text="Our Location"
+            android:textColor="@android:color/white"
+            android:textAllCaps="false"
+            android:gravity="start|center_vertical"
+            android:paddingStart="16dp"
+            android:layout_marginTop="8dp"/>
 
         <Button
             android:id="@+id/menu_web"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:backgroundTint="@color/blue"
-            android:text="About Us" />
+            android:text="About Us"
+            android:textColor="@android:color/white"
+            android:textAllCaps="false"
+            android:gravity="start|center_vertical"
+            android:paddingStart="16dp"
+            android:layout_marginTop="8dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -52,12 +76,16 @@
             android:orientation="vertical"
             android:layout_marginBottom="78dp"
             android:gravity="bottom">
+
             <Button
                 android:id="@+id/menu_logout"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:backgroundTint="#ff0000"
-                android:text="Log Out" />
+                android:text="Log Out"
+                android:textColor="@android:color/white"
+                android:textAllCaps="false"
+                android:paddingStart="16dp"/>
         </LinearLayout>
     </LinearLayout>
 </FrameLayout>
