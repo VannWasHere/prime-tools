@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -61,8 +62,8 @@ public class SessionManager {
     public void logout() {
         editor.clear();
         editor.apply();
+        ((Activity) context).finish();
         Intent i = new Intent(context.getApplicationContext(), MainActivity.class);
         context.startActivity(i);
-        ((MainActivity) context).finish();
     }
 }

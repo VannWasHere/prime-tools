@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,9 @@ public class MenuFragment extends Fragment {
         menu_logout = v.findViewById(R.id.menu_logout);
         sessionManager = new SessionManager(requireContext());
 
+        menu_logout = v.findViewById(R.id.menu_logout);
+        sessionManager = new SessionManager(requireContext());
+
         menu_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -33,7 +37,6 @@ public class MenuFragment extends Fragment {
                     sessionManager.logout();
                 } else {
                     startActivity(new Intent(requireContext(), MainActivity.class));
-                    requireActivity().finish();
                 }
             }
         });
