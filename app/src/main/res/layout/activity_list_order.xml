@@ -15,12 +15,12 @@
 
         <TextView
             android:id="@+id/userName"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Orders"
-            android:textSize="25dp"
-            android:textStyle="bold"
-            android:layout_marginBottom="10dp"/>
+            android:text=""
+            android:textSize="25sp"
+            android:textAllCaps="true"
+            android:textStyle="bold"/>
 
         <ListView
             android:id="@+id/orderList"

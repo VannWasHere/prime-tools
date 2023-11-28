@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -27,12 +28,18 @@ public class ListOrderActivity extends AppCompatActivity {
     private ListView orderListView;
     private List<Map<String, String>> orderList;
     private SimpleAdapter orderListAdapter;
+    TextView textName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_order);
 
+        SessionManager sessionManager = new SessionManager(getApplicationContext());
+        HashMap<String, String> userDetails = sessionManager.getUserDetails();
+        String username = userDetails.get(SessionManager.USERNAME);
+        textName = findViewById(R.id.userName);
+        textName.setText(username + "'s Order");
         orderListView = findViewById(R.id.orderList);
         orderList = new ArrayList<>();
         orderListAdapter = new SimpleAdapter(
@@ -95,7 +102,8 @@ public class ListOrderActivity extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 SessionManager sessionManager = new SessionManager(getApplicationContext());
-                String my_id = "2";
+                HashMap<String, String> userDetails = sessionManager.getUserDetails();
+                String my_id = userDetails.get(SessionManager.ID_USER);
                 params.put("user_id", my_id);
                 return params;
             }
