@@ -19,6 +19,13 @@
             android:text="Profile" />
 
         <Button
+            android:id="@+id/menu_orders"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:backgroundTint="@color/blue"
+            android:text="Show Orders" />
+
+        <Button
             android:id="@+id/menu_camera"
             android:layout_width="match_parent"
             android:layout_height="60dp"
