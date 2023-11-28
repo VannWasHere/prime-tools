@@ -99,6 +99,8 @@ public class CheckoutActivity extends AppCompatActivity {
 
                             if (success) {
                                 Toast.makeText(CheckoutActivity.this, message, Toast.LENGTH_SHORT).show();
+                                Intent i = new Intent(getApplicationContext(), ListOrderActivity.class);
+                                startActivity(i);
                             } else {
                                 Toast.makeText(CheckoutActivity.this, message, Toast.LENGTH_SHORT).show();
                             }
