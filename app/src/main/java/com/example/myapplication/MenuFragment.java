@@ -21,6 +21,9 @@ public class MenuFragment extends Fragment {
         // Inflate the layout for this fragment
         View v =  inflater.inflate(R.layout.fragment_menu, container, false);
 
+        menu_profile = v.findViewById(R.id.menu_profile);
+        menu_profile.setOnClickListener(view -> startActivity(new Intent(getActivity(), UpdateProfileActivity.class)));
+
         menu_camera =v.findViewById(R.id.menu_camera);
         menu_camera.setOnClickListener(view -> startActivity(new Intent(getActivity(), OpenCamera.class)));
 
