@@ -5,22 +5,18 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import androidx.annotation.Nullable;
-
 public class DBHandler extends SQLiteOpenHelper {
-    private static final String DATABASE_NAME = "Orders.db";
-    private static final int DATABASE_VERSION = 1;
+    public static final String DATABASE_NAME = "Orders.db";
+    public static final int DATABASE_VERSION = 1;
 
-    // Define your table and columns
-    private static final String TABLE_ORDERS = "orders";
-    private static final String COLUMN_ID = "id";
-    private static final String COLUMN_ORDER_ID = "order_id";
-    private static final String COLUMN_ITEM_NAME = "item_name";
-    private static final String COLUMN_ORDER_PRICE = "order_price";
-    private static final String COLUMN_ORDER_ADDRESS = "order_address";
-    private static final String COLUMN_IS_FINISHED = "is_finished";
+    public static final String TABLE_ORDERS = "orders";
+    public static final String COLUMN_ID = "id";
+    public static final String COLUMN_ORDER_ID = "order_id";
+    public static final String COLUMN_ITEM_NAME = "item_name";
+    public static final String COLUMN_ORDER_PRICE = "order_price";
+    public static final String COLUMN_ORDER_ADDRESS = "order_address";
+    public static final String COLUMN_IS_FINISHED = "is_finished";
 
-    // Create table query
     private static final String CREATE_ORDERS_TABLE =
             "CREATE TABLE " + TABLE_ORDERS + " (" +
                     COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -37,15 +33,15 @@ public class DBHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // Create the table
         db.execSQL(CREATE_ORDERS_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // Handle upgrades if needed
+        // Implement if needed
     }
-    public long insertOrder(String orderId, String itemName, String orderPrice, String orderAddress, int isFinished) {
+
+    public boolean insertOrder(String orderId, String itemName, String orderPrice, String orderAddress, int isFinished) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -59,7 +55,6 @@ public class DBHandler extends SQLiteOpenHelper {
 
         db.close();
 
-        return newRowId;
+        return newRowId != -1;
     }
-
 }
