@@ -93,4 +93,12 @@ public class DBHandler extends SQLiteOpenHelper {
 
         return orderList;
     }
+
+    public void deleteOrder(String orderId) {
+        SQLiteDatabase db = getWritableDatabase();
+        String selection = COLUMN_ORDER_ID + " = ?";
+        String[] selectionArgs = {orderId};
+        db.delete(TABLE_ORDERS, selection, selectionArgs);
+        db.close();
+    }
 }
