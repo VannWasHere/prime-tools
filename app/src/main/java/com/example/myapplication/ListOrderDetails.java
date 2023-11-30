@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +24,7 @@ import java.util.Map;
 public class ListOrderDetails extends AppCompatActivity {
 
     private TextView orderDetailsTitle, itemName, orderPrice, orderAddress, isFinished, userEmail, userPhone;
+    Button orderFinish;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,7 @@ public class ListOrderDetails extends AppCompatActivity {
         isFinished = findViewById(R.id.isFinished);
         userEmail = findViewById(R.id.userEmail);
         userPhone = findViewById(R.id.userPhone);
+        orderFinish = findViewById(R.id.orderFinish);
 
         String orderId = getIntent().getStringExtra("order_id");
         if (orderId != null) {
@@ -42,6 +46,46 @@ public class ListOrderDetails extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Order ID not provided", Toast.LENGTH_SHORT).show();
         }
+
+        orderFinish.setOnClickListener(v -> {
+            if (orderId != null) {
+                updateOrderStatus(orderId);
+            } else {
+                Toast.makeText(this, "Order ID not provided", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void updateOrderStatus(String orderId) {
+        String url = "http://10.0.2.2:50/PrimeTools/finishOrder.php";
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                response -> {
+                    try {
+                        JSONObject jsonResponse = new JSONObject(response);
+                        boolean success = jsonResponse.getBoolean("success");
+                        String message = jsonResponse.getString("message");
+
+                        if (success) {
+                            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(getApplicationContext(), "JSON parsing error", Toast.LENGTH_SHORT).show();
+                    }
+                },
+                error -> Toast.makeText(getApplicationContext(), "Volley error", Toast.LENGTH_SHORT).show()) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("order_id", orderId);
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
     }
 
     private void fetchOrderDetails(String orderId) {

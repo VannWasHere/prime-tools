@@ -109,4 +109,13 @@
         android:layout_below="@id/userPhoneLabel"
         android:layout_marginTop="8dp"/>
 
+    <Button
+        android:id="@+id/orderFinish"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Finish Order"
+        android:backgroundTint="@color/blue"
+        android:layout_below="@id/userPhone"
+        android:layout_marginTop="10dp"/>
+
 </RelativeLayout>
