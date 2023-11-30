@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -24,6 +25,7 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -36,12 +38,20 @@ public class MarketFragment extends Fragment {
     String get_rand_item = "http://10.0.2.2:50/PrimeTools/showItems.php";
     private static final String RESPONSE_DATA = "items";
     String item_id;
+    SessionManager sessionManager;
+    TextView userHello;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_home, container, false);
+
+        userHello = v.findViewById(R.id.userHello);
+        sessionManager = new SessionManager(getContext());
+        HashMap<String, String> userDetails = sessionManager.getUserDetails();
+        String username = userDetails.get(SessionManager.USERNAME);
+        userHello.setText("Hello, " + username);
 
         listRandTools = new ArrayList<>();
         listView = v.findViewById(R.id.itemList);
