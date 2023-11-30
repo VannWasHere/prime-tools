@@ -36,6 +36,13 @@ public class SessionManager {
         editor.apply();
     }
 
+    public void updateProfile(String email, String username, String phone) {
+        editor.putString(EMAIL, email);
+        editor.putString(USERNAME, username);
+        editor.putString(PHONE, phone);
+        editor.apply();
+    }
+
     public boolean isLogging() {
         return sharedPreferences.getBoolean(LOGIN, false);
     }
