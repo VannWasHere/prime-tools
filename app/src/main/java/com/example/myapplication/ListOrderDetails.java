@@ -28,11 +28,17 @@ public class ListOrderDetails extends AppCompatActivity {
 
     private TextView orderDetailsTitle, itemName, orderPrice, orderAddress, isFinished, userEmail, userPhone;
     Button orderFinish;
+    SessionManager sessionManager;
+    String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_order_details);
+
+        sessionManager = new SessionManager(getApplicationContext());
+        HashMap<String, String> userDetails = sessionManager.getUserDetails();
+        id = userDetails.get(SessionManager.ID_USER);
 
         orderDetailsTitle = findViewById(R.id.orderDetailsTitle);
         itemName = findViewById(R.id.itemName);
@@ -134,23 +140,21 @@ public class ListOrderDetails extends AppCompatActivity {
             String orderAddress = orderDetails.getString("order_address");
             int isFinishedValue = orderDetails.getInt("isFinished");
 
+            Log.d("USER_ID", "UserID: " + id); // Log the user ID
+
             SQLiteDatabase db = new DBHandler(this).getWritableDatabase();
 
             ContentValues values = new ContentValues();
             values.put(DBHandler.COLUMN_ORDER_ID, orderId);
+            values.put(DBHandler.COLUMN_USER_ID, id);
             values.put(DBHandler.COLUMN_ITEM_NAME, itemName);
             values.put(DBHandler.COLUMN_ORDER_PRICE, orderPrice);
             values.put(DBHandler.COLUMN_ORDER_ADDRESS, orderAddress);
-            values.put(DBHandler.COLUMN_IS_FINISHED, isFinishedValue); // Use the actual value
+            values.put(DBHandler.COLUMN_IS_FINISHED, isFinishedValue);
 
             long newRowId = db.insert(DBHandler.TABLE_ORDERS, null, values);
 
-            if (newRowId != -1) {
-                Toast.makeText(getApplicationContext(), "Order data inserted into SQLite", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(getApplicationContext(), "Failed to insert order data into SQLite", Toast.LENGTH_SHORT).show();
-            }
-            db.close();
+            // Rest of your code...
         } catch (JSONException e) {
             e.printStackTrace();
             Toast.makeText(getApplicationContext(), "Error extracting data from JSON", Toast.LENGTH_SHORT).show();

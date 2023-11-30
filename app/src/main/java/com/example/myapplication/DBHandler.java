@@ -13,6 +13,7 @@ public class DBHandler extends SQLiteOpenHelper {
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_ORDER_ID = "order_id";
     public static final String COLUMN_ITEM_NAME = "item_name";
+    public static final String COLUMN_USER_ID = "user_id";
     public static final String COLUMN_ORDER_PRICE = "order_price";
     public static final String COLUMN_ORDER_ADDRESS = "order_address";
     public static final String COLUMN_IS_FINISHED = "is_finished";
@@ -21,6 +22,7 @@ public class DBHandler extends SQLiteOpenHelper {
             "CREATE TABLE " + TABLE_ORDERS + " (" +
                     COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                     COLUMN_ORDER_ID + " TEXT," +
+                    COLUMN_USER_ID + " INTEGER," +
                     COLUMN_ITEM_NAME + " TEXT," +
                     COLUMN_ORDER_PRICE + " TEXT," +
                     COLUMN_ORDER_ADDRESS + " TEXT," +
@@ -38,14 +40,15 @@ public class DBHandler extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // Implement if needed
+        db.execSQL("ALTER TABLE " + TABLE_ORDERS + " ADD COLUMN " + COLUMN_USER_ID + " INTEGER");
     }
 
-    public boolean insertOrder(String orderId, String itemName, String orderPrice, String orderAddress, int isFinished) {
+    public boolean insertOrder(String orderId, String itemName, String userID, String orderPrice, String orderAddress, int isFinished) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(COLUMN_ORDER_ID, orderId);
+        values.put(COLUMN_USER_ID, userID);
         values.put(COLUMN_ITEM_NAME, itemName);
         values.put(COLUMN_ORDER_PRICE, orderPrice);
         values.put(COLUMN_ORDER_ADDRESS, orderAddress);
