@@ -21,11 +21,11 @@ public class MenuFragment extends Fragment {
         // Inflate the layout for this fragment
         View v =  inflater.inflate(R.layout.fragment_menu, container, false);
 
+        menu_camera =v.findViewById(R.id.menu_camera);
+        menu_camera.setOnClickListener(view -> startActivity(new Intent(getActivity(), OpenCamera.class)));
+
         menu_orders = v.findViewById(R.id.menu_orders);
         menu_orders.setOnClickListener(view -> startActivity(new Intent(getActivity(), ListOrderActivity.class)));
-
-        menu_logout = v.findViewById(R.id.menu_logout);
-        sessionManager = new SessionManager(requireContext());
 
         menu_logout = v.findViewById(R.id.menu_logout);
         sessionManager = new SessionManager(requireContext());
