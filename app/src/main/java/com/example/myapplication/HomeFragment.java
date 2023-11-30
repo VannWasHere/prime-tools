@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import com.android.volley.Request;
@@ -35,6 +36,8 @@ public class HomeFragment extends Fragment {
     String get_rand_item = "http://10.0.2.2:50/PrimeTools/showRandItem.php";
     private static final String RESPONSE_DATA = "items";
     String item_id;
+    SessionManager sessionManager;
+    TextView userHello;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -42,6 +45,12 @@ public class HomeFragment extends Fragment {
 
         listRandTools = new ArrayList<>();
         listView = v.findViewById(R.id.itemList);
+        userHello = v.findViewById(R.id.userHello);
+        sessionManager = new SessionManager(getContext());
+        HashMap<String, String> userDetails = sessionManager.getUserDetails();
+        String username = userDetails.get(SessionManager.USERNAME);
+        userHello.setText("Hello, " + username);
+
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         StringRequest stringRequest = new StringRequest(Request.Method.POST, get_rand_item, new Response.Listener<String>() {
