@@ -152,9 +152,8 @@ public class ListOrderDetails extends AppCompatActivity {
             values.put(DBHandler.COLUMN_ORDER_ADDRESS, orderAddress);
             values.put(DBHandler.COLUMN_IS_FINISHED, isFinishedValue);
 
-            long newRowId = db.insert(DBHandler.TABLE_ORDERS, null, values);
+            db.insert(DBHandler.TABLE_ORDERS, null, values);
 
-            // Rest of your code...
         } catch (JSONException e) {
             e.printStackTrace();
             Toast.makeText(getApplicationContext(), "Error extracting data from JSON", Toast.LENGTH_SHORT).show();

@@ -1,13 +1,17 @@
 package com.example.myapplication;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+
 public class DBHandler extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "Orders.db";
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
 
     public static final String TABLE_ORDERS = "orders";
     public static final String COLUMN_ID = "id";
@@ -59,5 +63,34 @@ public class DBHandler extends SQLiteOpenHelper {
         db.close();
 
         return newRowId != -1;
+    }
+
+    public ArrayList<Order> getOrdersForUser(String userId) {
+        ArrayList<Order> orderList = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {COLUMN_ORDER_ID, COLUMN_ITEM_NAME, COLUMN_ORDER_PRICE, COLUMN_ORDER_ADDRESS, COLUMN_IS_FINISHED};
+        String selection = COLUMN_USER_ID + " = ?";
+        String[] selectionArgs = {userId};
+
+        Cursor cursor = db.query(TABLE_ORDERS, columns, selection, selectionArgs, null, null, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                @SuppressLint("Range") String orderId = cursor.getString(cursor.getColumnIndex(COLUMN_ORDER_ID));
+                @SuppressLint("Range") String itemName = cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_NAME));
+                @SuppressLint("Range") String orderPrice = cursor.getString(cursor.getColumnIndex(COLUMN_ORDER_PRICE));
+                @SuppressLint("Range") String orderAddress = cursor.getString(cursor.getColumnIndex(COLUMN_ORDER_ADDRESS));
+                @SuppressLint("Range") int isFinished = cursor.getInt(cursor.getColumnIndex(COLUMN_IS_FINISHED));
+
+                Order order = new Order(orderId, itemName, orderPrice, orderAddress, isFinished);
+                orderList.add(order);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return orderList;
     }
 }
