@@ -25,6 +25,7 @@
         <ListView
             android:id="@+id/orderList"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_marginBottom="78dp"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
